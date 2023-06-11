@@ -1,0 +1,74 @@
+{% load static %}
+{% load blog_tags %}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'blog/images/main.ico' %}" type="image/x-icon"/>
+</head>
+<body>
+
+    {% block mainmenu %}
+    <header class="head">
+        <ul class="navigate">
+            {% show_menu %}
+            {% if request.user.is_authenticated %}
+            <li> {{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+            {% else %}
+            <li><a href="{% url 'register' %}">Регистрация</a>| <a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+    </header>
+
+
+<div class="sidebar">
+
+    <ul>
+        <h3>Все категории:</h3>
+        {% show_categories %}
+    </ul>
+
+</div>
+    {% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+{% if page_obj.has_other_pages %}
+<nav class="paginate">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li class="page-num">
+            <a href="?page={{ page_obj.previous_page_number }}"> < </a>
+        </li>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+        {% if page_obj_number == page %}
+        <li class="page-num page-num-selected">{{page}}</li>
+        {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+        <li class="page-num">
+            <a href="?page={{page}}">{{page}}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-num">
+            <a href="?page={{ page_obj.next_page_number }}"> > </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+</body>
+</html>

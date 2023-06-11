@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+<h1>{{ title }}</h1>
+<ul>
+    {% for post in posts %}
+        <li>
+            <p>Категория: {{post.cat}}</p>
+
+            {% if post.photo %}
+            <img src="{{post.photo.url}}" alt="">
+            {% endif %}
+            <h2>{{post.title}}</h2>
+            {% autoescape off %}
+            <p>{{post.content|linebreaks|truncatewords:25}}</p>
+            {% endautoescape %}
+            <button><a href="{{ post.get_absolute_url }}">Читать полностью</a></button>
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

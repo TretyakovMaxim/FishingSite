@@ -1,0 +1,3 @@
+{% for element in menu %}
+  <li class="navigate"><a href="{% url element.url_name %}"><h3>{{element.title}}</h3></a></li>
+{% endfor %}
