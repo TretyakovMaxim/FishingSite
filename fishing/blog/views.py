@@ -4,6 +4,9 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .seializers import BlogSerializer
 
 from blog.forms import *
@@ -122,6 +125,19 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Такой страницы нету!</h1>')
 
 
-class BlogAPIView(generics.ListAPIView):
-    queryset = Article.objects.all()
-    serializer_class = BlogSerializer
+class BlogAPIView(APIView):
+    def get(self, request):
+        articles = Article.objects.all()
+        return Response({'posts': BlogSerializer(articles, many=True).data})
+
+    def post(self, request):
+        serializer = BlogSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        post_new = Article.objects.create(
+            title=request.data['title'],
+            content=request.data['content'],
+            cat_id=request.data['cat_id']
+        )
+
+        return Response({'post': BlogSerializer(post_new).data})

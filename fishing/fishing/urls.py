@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('captcha/', include('captcha.urls')),
-    path('api/v1/bloglist', BlogAPIView.as_view())
+    path('api/v1/bloglist/', BlogAPIView.as_view())
 ]
 
 if settings.DEBUG:
