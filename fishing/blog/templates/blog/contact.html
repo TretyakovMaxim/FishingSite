@@ -1,9 +1,10 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="contact">
 <h1>{{title}}</h1>
 
-<form method="POST">
+<form class="form__contact" method="POST">
   {% csrf_token %}
 
   <div class="form-error">{{ form.non_fields_error }}</div>
@@ -15,5 +16,5 @@
 
   <button type="submit">Отправить</button>
 </form>
-
+</div>
 {% endblock %}

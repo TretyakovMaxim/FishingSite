@@ -2,14 +2,14 @@
 
 
 {% block content %}
-<h2>{{title}}</h2>
+<div class="form__mane">
+    <h2>{{title}}</h2>
 
-<form action="{% url 'add_page' %}" method="POST" enctype="multipart/form-data">
+    <form class="form__post" action="{% url 'add_page' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Добавить статью</button>
-</form>
-
+        <button type="submit" class="btn">Добавить статью</button>
+    </form>
+</div>
 {% endblock %}
-
 

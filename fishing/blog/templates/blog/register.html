@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="contact">
 <h1>{{title}}</h1>
 
 <form method="POST">
@@ -11,6 +12,7 @@
     <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
 
-    <button type="submit">Зарегистрироваться</button>
+    <button class="btn" type="submit">Зарегистрироваться</button>
 </form>
+</div>
 {% endblock %}
