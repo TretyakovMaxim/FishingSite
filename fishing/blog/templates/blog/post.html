@@ -1,6 +1,7 @@
 {% extends "blog/base.html"%}
 
 {% block content %}
+<div class="post">
 <h1>{{post.title}}</h1>
 
 {% if post.photo %}
@@ -10,5 +11,5 @@
 {% autoescape off %}
     {{post.content|linebreaks}}
 {% endautoescape %}
-
+</div>
 {% endblock %}

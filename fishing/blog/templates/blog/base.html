@@ -6,8 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }}</title>
     <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet">
@@ -16,35 +15,38 @@
 <body>
 
     {% block mainmenu %}
+
     <header class="head">
+        <div class="adapt">
+            <a href="{%url 'home'%}"><img src="../../static/blog/images/logo.png"  alt="" ></a>
         <ul class="navigate">
             {% show_menu %}
             {% if request.user.is_authenticated %}
-            <li> {{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+            <li> {{user.username}} | <a class="reg-log" href="{% url 'logout' %}">Выйти</a></li>
             {% else %}
-            <li><a href="{% url 'register' %}">Регистрация</a>| <a href="{% url 'login' %}">Войти</a></li>
+            <li class="reg"><a class="delimiter reg-log" href="{% url 'register' %}">Регистрация</a> <a class="reg-log"href="{% url 'login' %}">Войти</a></li>
             {% endif %}
         </ul>
+        </div>
     </header>
 
-
-<div class="sidebar">
-
-    <ul>
-        <h3>Все категории:</h3>
+    <div class="sidebar">
+        <ul>
+            <h3>Все категории:</h3>
         {% show_categories %}
-    </ul>
+        </ul>
+    </div>
 
-</div>
     {% endblock %}
-
 
 {% block content %}
 
 {% endblock %}
 
+
 {% if page_obj.has_other_pages %}
-<nav class="paginate">
+
+    <nav class="paginate">
     <ul>
         {% if page_obj.has_previous %}
         <li class="page-num">
@@ -69,6 +71,10 @@
         {% endif %}
     </ul>
 </nav>
+
 {% endif %}
+
+
+
 </body>
 </html>
